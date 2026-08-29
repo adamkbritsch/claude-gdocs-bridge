@@ -47,6 +47,17 @@ Setup (once per document):
 After that, the agent's loop is: edit the model via Monaco injection → save →
 run → screenshot the doc to verify. No API keys, no cloud project setup.
 
+Field notes from real use:
+- The function-picker dropdown is hostile to synthetic clicks (selection races).
+  Sturdier pattern: leave the selected function name alone and **redefine its
+  body** for each operation, so plain Save + Run always executes your latest
+  intent.
+- `ListItem.setGlyphType(src.getGlyphType())` on a pasted list can flip the
+  whole list to numbered — pasted lists often report a null glyph. Set
+  `DocumentApp.GlyphType.BULLET` explicitly instead.
+- A doc open in another tab shows black canvas tiles after external edits —
+  reload that tab before judging your run's output.
+
 ## What's in here
 
 | file | purpose |
